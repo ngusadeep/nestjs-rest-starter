@@ -14,5 +14,6 @@ export default () => ({
     password: process.env.DB_PASSWORD || 'your-password',
     database: process.env.DB_DATABASE || 'your-database',
     sync: process.env.DB_SYNC === 'true',
+    logging: process.env.DB_LOGGING === 'true',
   },
 });

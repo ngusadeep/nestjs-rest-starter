@@ -3,6 +3,8 @@ import { AppModule } from 'src/app.module';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { SeederService } from 'src/modules/seeder/seeder.service';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -23,7 +25,10 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup(`${apiPrefix}/docs`, app, document);
+
+  await app.get(SeederService).seed();
 
   await app.listen(process.env.PORT || 3000);
 }
