@@ -24,7 +24,7 @@ export class User extends BasicEntity {
   @Column({ length: 255 })
   password: string;
 
-  @ManyToOne(() => Role, (role) => role.users, {
+  @ManyToOne(() => Role, role => role.users, {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'roleId' })

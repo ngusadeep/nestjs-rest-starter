@@ -28,6 +28,10 @@ export class UsersService {
     return await this.entityManager.findOneBy(User, { email: Equal(email) });
   }
 
+  async findById(id: number) {
+    return await this.entityManager.findOneBy(User, { id: Equal(id) });
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
