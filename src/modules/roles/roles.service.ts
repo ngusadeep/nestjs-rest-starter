@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { UpdateRoleDto } from 'src/modules/roles/dto/update-role.dto';
 import { EntityManager } from 'typeorm';
 import { LoggerService } from 'src/lib/logger/logger.service';
 import { Role } from 'src/modules/roles/entities/role.entity';
