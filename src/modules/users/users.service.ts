@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
-import { EntityManager } from 'typeorm';
-import { LoggerService } from 'src/core/logger/logger.service';
+import { EntityManager, Equal } from 'typeorm';
+import { LoggerService } from 'src/lib/logger/logger.service';
 import { User } from 'src/modules/users/entities/user.entity';
 
 @Injectable()
@@ -22,6 +22,10 @@ export class UsersService {
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
+  }
+
+  async findByEmail(email: string) {
+    return await this.entityManager.findOneBy(User, { email: Equal(email) });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -4,7 +4,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { Role } from 'src/modules/roles/entities/role.entity';
 import { Permission } from 'src/modules/roles/entities/permission.entity';
 import { predefinedPermissions } from 'src/modules/seeder/data/permissions.data';
-import { LoggerService } from 'src/core/logger/logger.service';
+import { LoggerService } from 'src/lib/logger/logger.service';
 
 @Injectable()
 export class SeederService {
@@ -31,7 +31,7 @@ export class SeederService {
     ];
 
     await Promise.all(
-      predefinedRoles.map(async (roleData) => {
+      predefinedRoles.map(async roleData => {
         const roleExists = await this.entityManager.findOneBy(Role, {
           name: roleData.name,
         });
@@ -39,7 +39,7 @@ export class SeederService {
         if (!roleExists) {
           const role = this.entityManager.create(Role, { name: roleData.name });
           role.permissions = await Promise.all(
-            roleData.permissions.map(async (permData) => {
+            roleData.permissions.map(async permData => {
               let permission = await this.entityManager.findOneBy(Permission, {
                 name: permData.name,
               });

@@ -8,7 +8,7 @@ export class Role extends BasicEntity {
   @Column({ length: 100 })
   name: string;
 
-  @ManyToMany(() => Permission, (permission) => permission.roles, {
+  @ManyToMany(() => Permission, permission => permission.roles, {
     cascade: ['insert', 'update'], // Cascade on insert and update
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
@@ -16,7 +16,7 @@ export class Role extends BasicEntity {
   @JoinTable()
   permissions: Permission[];
 
-  @OneToMany(() => User, (user) => user.role, {
+  @OneToMany(() => User, user => user.role, {
     onDelete: 'SET NULL',
   })
   users: User[];

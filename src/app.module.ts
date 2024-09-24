@@ -6,7 +6,10 @@ import { ConfigModule } from 'src/config/config.module';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { SeederModule } from './modules/seeder/seeder.module';
-import { LoggerModule } from 'src/core/logger/logger.module';
+import { LoggerModule } from 'src/lib/logger/logger.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthService } from 'src/modules/auth/services/auth.service';
+import { JwtStrategy } from 'src/modules/auth/services/jwt.strategy';
 
 @Module({
   imports: [
@@ -16,11 +19,9 @@ import { LoggerModule } from 'src/core/logger/logger.module';
     RolesModule,
     SeederModule,
     LoggerModule,
-    // AuthModule,
-    // RolesModule,
-    // AuditModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthService, JwtStrategy],
 })
 export class AppModule {}

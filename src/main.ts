@@ -21,7 +21,10 @@ async function bootstrap() {
       configService.get<string>('app.description') || 'Default App Description',
     )
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'JWT',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
