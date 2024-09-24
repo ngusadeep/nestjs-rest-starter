@@ -6,14 +6,11 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { AuthUser } from 'src/modules/auth/decorator/auth-user.decorator';
 
 @ApiTags('Users')
 @ApiBearerAuth('JWT')
@@ -27,7 +24,7 @@ export class UsersController {
   }
 
   @Get()
-  findAll(@AuthUser() user: any) {
+  async findAll() {
     return this.usersService.findAll();
   }
 
