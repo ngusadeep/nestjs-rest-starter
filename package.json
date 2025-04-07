@@ -95,5 +95,13 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@nestjs/core"
+    ],
+    "onlyBuiltDependencies": [
+      "@nestjs/core"
+    ]
   }
 }
