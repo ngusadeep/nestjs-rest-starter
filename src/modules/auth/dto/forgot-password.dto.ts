@@ -1,9 +1,14 @@
-export class ForgotPasswordDto {
-  email: string;
-}
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
-export class ResetPasswordDto {
-  token: string;
+export class ForgotPasswordDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(6)
   password: string;
+
+  @IsString()
+  @MinLength(6)
   confirmPassword: string;
 }
