@@ -34,12 +34,7 @@ export class ResponseTransformInterceptor<T>
   ): Observable<Response<T>> {
     const request = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();
-    const excludedRoutes = [
-      '/api/v1/groups/export',
-      '/api/v1/group/registration/requests/export',
-      '/api/v1/auth/login',
-      '/api/v1/auth/register',
-    ];
+    const excludedRoutes = ['/'];
 
     if (excludedRoutes.includes(response.req.url)) {
       return next.handle();
