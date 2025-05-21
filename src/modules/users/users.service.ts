@@ -39,4 +39,28 @@ export class UsersService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
+
+  async updatePassword(userId: number, newPassword: string) {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    user.password = newPassword;
+    await this.entityManager.save(user);
+    return user;
+  }
+
+  async resetPassword(userId: number, token: string) {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Verify token here (implement your token verification logic)
+    // This is just a placeholder
+    user.password = token; // In real implementation, this would be a new password
+    await this.entityManager.save(user);
+    return user;
+  }
 }

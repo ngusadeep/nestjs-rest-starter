@@ -47,10 +47,10 @@ export class User extends BasicEntity {
     });
   }
 
-  async verifyPassword(plainTextPassword: string): Promise<boolean> {
+  async comparePassword(candidatePassword: string): Promise<boolean> {
     const [salt, storedHash] = this.password.split(':');
     return new Promise((resolve, reject) => {
-      crypto.scrypt(plainTextPassword, salt, 64, (err, derivedKey) => {
+      crypto.scrypt(candidatePassword, salt, 64, (err, derivedKey) => {
         if (err) reject(err);
         resolve(storedHash === derivedKey.toString('hex'));
       });
