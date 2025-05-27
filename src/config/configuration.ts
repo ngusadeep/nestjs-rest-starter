@@ -2,6 +2,7 @@ export default () => ({
   nodeEnv: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT ?? '3000', 10),
   jwtSecret: process.env.JWT_SECRET,
+  jwtPrefix: process.env.JWT_PREFIX || '',
   app: {
     name: process.env.APP_NAME || 'API',
     description: process.env.APP_DESCRIPTION || 'API Description',
