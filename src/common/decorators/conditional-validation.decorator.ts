@@ -2,6 +2,7 @@ import {
   registerDecorator,
   ValidationOptions,
   ValidationArguments,
+  isEmpty,
 } from 'class-validator';
 
 /**
@@ -78,6 +79,69 @@ export function IsRequiredWhen(
         defaultMessage(args: ValidationArguments) {
           const [relatedPropertyName, relatedValues] = args.constraints;
           return `${args.property} is required when ${relatedPropertyName} is one of: ${relatedValues.join(', ')}`;
+        },
+      },
+    });
+  };
+}
+
+/**
+ * Field must be empty when another field has certain values
+ */
+export function IsEmptyWhen(
+  property: string,
+  values: any[],
+  validationOptions?: ValidationOptions,
+) {
+  return function (object: any, propertyName: string) {
+    registerDecorator({
+      name: 'isEmptyWhen',
+      target: object.constructor,
+      propertyName,
+      constraints: [property, values],
+      options: validationOptions,
+      validator: {
+        validate(value: any, args: ValidationArguments) {
+          const [relatedPropertyName, relatedValues] = args.constraints;
+          const relatedValue = (args.object as any)[relatedPropertyName];
+
+          if (relatedValues.includes(relatedValue)) {
+            return isEmpty(value);
+          }
+          return true;
+        },
+        defaultMessage(args: ValidationArguments) {
+          const [relatedPropertyName, relatedValues] = args.constraints;
+          return `${args.property} must be empty when ${relatedPropertyName} is one of: ${relatedValues.join(', ')}`;
+        },
+      },
+    });
+  };
+}
+
+/**
+ * Field must match another field's value
+ */
+export function MatchesField(
+  property: string,
+  validationOptions?: ValidationOptions,
+) {
+  return function (object: any, propertyName: string) {
+    registerDecorator({
+      name: 'matchesField',
+      target: object.constructor,
+      propertyName,
+      constraints: [property],
+      options: validationOptions,
+      validator: {
+        validate(value: any, args: ValidationArguments) {
+          const [relatedPropertyName] = args.constraints;
+          const relatedValue = (args.object as any)[relatedPropertyName];
+          return value === relatedValue;
+        },
+        defaultMessage(args: ValidationArguments) {
+          const [relatedPropertyName] = args.constraints;
+          return `${args.property} must match ${relatedPropertyName}`;
         },
       },
     });
