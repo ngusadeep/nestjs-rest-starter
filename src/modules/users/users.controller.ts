@@ -7,9 +7,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UsersService } from 'src/modules/users/users.service';
+import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
+import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users')
