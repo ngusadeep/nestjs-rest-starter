@@ -12,4 +12,4 @@ import { validate } from 'src/config/validation';
     }),
   ],
 })
-export class ConfigModule {}
+export class AppConfigModule {}
